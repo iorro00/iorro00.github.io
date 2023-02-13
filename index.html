@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esempi semplici di form</title>
+    <style type="text/css">
+        body{
+            background-color: beige;
+        }
+        .error{
+            color: red;
+            font-weight: bold;
+            font-size: 15px;
+            padding: 10px;
+            font-style: initial;
+            display: none;
+        }
+        form{
+            text-align: justify;
+            font-size: 15px;
+        }
+        h2{
+            font-size: 20px;
+            text-align: center;
+        }
+
+    </style>
+
+</head>
+<body>
+	<h2>
+		Scrivere in jQuery le regole di controllo della form
+	</h2>
+    <form>
+        <label for="nome">Nome*</label>
+        <input type="text" name="nome" id="nome"> <label class="error" id="err1"> inserisci un nome valido</label>
+        <br>
+        <label for="cognome">Cognome*</label>
+        <input type="text" name="cognome" id="cognome"> <label class="error" id="err2">inserisci un cognome valido</label>
+        <br>
+        <label for="eta">Età* (intero: min 18 anni)</label>
+        <input type="text" name="eta" id="eta"> <label class="error" id="err3">inserisci un età</label >
+        <br>
+        <p>Sesso*</p>
+        <input type="radio" id="maschile" name="sesso" value="maschile">
+        <label for="maschile">Maschile</label>
+        <input type="radio" id="femminile" name="sesso" value="femminile">
+        <label for="femminile">Femminile</label>
+        <input type="radio" id="altro" name="sesso" value="altro">
+        <label for="altro">Altro</label> <label class="error" id="err4">inserisc un sesso</label>
+        <br>
+        <p>Hobby</p>
+        <input type="checkbox" id="karate" name="hobby" value="karate">
+        <label for="karate">Karate</label>
+        <input type="checkbox" id="leggere" name="hobby" value="leggere" >
+        <label for="leggere">Leggere</label>
+        <input type="checkbox" id="bere" name="hobby" value="bere">
+        <label for="bere">Bere</label> <label class="error" id="err5">inserisci un hobby</label>
+        <br>
+        <input id = "invio" type="button" value="Invia">
+        <input id = "reset" type="button" value="reset">
+    </form>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#err5").hide();
+            //invio
+            $("#invio").click(function() {
+                $(".error").hide();
+                var info = $(":checkbox").is(":checked");
+                if(!info){
+                    $("#err5").show();
+                }
+
+                var due = $(":radio").is(":checked");
+                if(!due){
+                    $("#err4").show();
+                }
+
+                if ($("#eta").val().trim().length === 0){
+                    $("#err3").show(); 
+                }
+
+                if ($("#cognome").val().trim().length === 0){
+                    $("#err2").show(); 
+                }
+
+                if ($("#nome").val().trim().length === 0){
+                    $("#err1").show(); 
+                }
+            });
+
+            $("#reset").click(function()    {
+                $(":checkbox").prop('checked', false);
+                $(":radio").prop('checked', false);
+                $("input:text").val('');
+            });
+
+        });
+
+    </script>
+</body>
+</html>
